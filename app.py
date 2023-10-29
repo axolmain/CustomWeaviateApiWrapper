@@ -11,11 +11,15 @@ client = weaviate.Client("http://31.220.108.226:8080")
 
 ns = api.namespace('api', description='API operations')
 
-session_model = api.model('Session', {
+create_session_model = api.model('Session', {
     'session_name': fields.String(required=True, description='Session name'),
 })
 
-get_session_model = api.model('Session', {
+delete_session_model = api.model('Session', {
+    'session_name': fields.String(required=True, description='Session name'),
+})
+
+view_session_model = api.model('Session', {
     'session_name': fields.String(required=True, description='Session name'),
 })
 
@@ -32,7 +36,7 @@ question_model = api.model('Question', {
 
 @ns.route('/CreateSession')
 class CreateSessionResource(Resource):
-    @ns.expect(session_model)
+    @ns.expect(create_session_model)
     @ns.response(201, 'Session created successfully')
     def post(self):
         data = request.get_json()
@@ -61,6 +65,22 @@ class CreateSessionResource(Resource):
         return f"Your session {session_name} now exists!"
 
 
+@ns.route('/DeleteSession')
+class DeleteSessionResource(Resource):
+    @ns.expect(delete_session_model)
+    def post(self):
+        data = request.get_json()
+        session_name = data.get('session_name').capitalize()
+
+        exists = client.schema.exists(session_name)
+        print(exists)
+        if exists:
+            client.schema.delete_class(session_name)
+            return f"Your session {session_name} was deleted!"
+
+        return f"Your session {session_name} was not deleted?"
+
+
 @ns.route('/UploadFile')
 class UploadFileResource(Resource):
     @ns.expect(file_model)
@@ -83,9 +103,9 @@ class UploadFileResource(Resource):
         return "There was an error uploading your object."
 
 
-@ns.route('/PostSession')
+@ns.route('/ViewSessionFiles')
 class GetSessionResource(Resource):
-    @ns.expect(get_session_model)
+    @ns.expect(view_session_model)
     @ns.response(200, 'Session data retrieved successfully')
     def post(self):
         data = request.get_json()
