@@ -1,38 +1,112 @@
-# Overview
+<p align="center">
+<img src="https://img.shields.io/github/languages/code-size/axolmain/CustomWeaviateApiWrapper" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/last-commit/axolmain/CustomWeaviateApiWrapper" alt="GitHub last commit" />
+<img src="https://img.shields.io/github/commit-activity/m/axolmain/CustomWeaviateApiWrapper" alt="GitHub commit activity month" />
+<img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT license" />
+</p>
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+<p></p>
+<p></p>
 
-{Provide a description of the software that you wrote and how it integrates with a Cloud Database. Describe how to use your program.}
+# 📌 Overview
 
-{Describe your purpose for writing this software.}
+CustomWeaviateApiWrapper is a Python library that provides a convenient and simplified way to interact with the Weaviate API. It utilizes essential dependencies like Flask, requests, and weaviate-client for seamless integration.
 
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running, a walkthrough of the code, and a view of the cloud database.}
+## 🔍 Table of Contents
 
-[Software Demo Video](http://youtube.link.goes.here)
+* [📁 Project Structure](##project-structure)
 
-# Cloud Database
+* [📝 Project Summary](##project-summary)
 
-{Describe the cloud database you are using.}
+* [💻 Stack](##stack)
 
-{Describe the structure of the database that you created.}
+* [📄 License](##license)
 
-# Development Environment
+## 📁 Project Structure
 
-{Describe the tools that you used to develop the software}
+```bash
+├── .gitignore
+├── .idea
+│   ├── .gitignore
+│   ├── WeviateApi.iml
+│   ├── aws.xml
+│   ├── inspectionProfiles
+│   │   ├── Project_Default.xml
+│   │   └── profiles_settings.xml
+│   ├── misc.xml
+│   └── modules.xml
+├── README.md
+├── app.py
+└── requirements.txt
+```
 
-{Describe the programming language that you used and any libraries.}
+## 📝 Project Summary
 
-# Useful Websites
+This project was created to test a self-hosted Weaviate instance and to learn how to use the Weaviate API. The project is a simple API wrapper that allows the user to create, read, update, and delete objects in a Weaviate instance. The wrapper currently only allows the user to create, read, update, and delete classes in a Weaviate instance.
 
-{Make a list of websites that you found helpful in this project}
+To create the Weaviate instance, I used Docker to create a container that runs the Weaviate instance. The Weaviate instance is hosted on a virtual machine on Hostinger. The Weaviate instance is accessible through the internet and can be accessed by anyone during this testing phase. The container uses 4 modules:
+- semitechnologies/qna-transformers:distilbert-base-cased-distilled-squad
+- semitechnologies/reranker-transformers:cross-encoder-ms-marco-MiniLM-L-6-v2
+- semitechnologies/sum-transformers:facebook-bart-large-cnn-1.0.0
+- semitechnologies/weaviate:1.21.8
 
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+These modules are not used by this Flask API wrapper as of 29/10/23.
+
+The Flask wrapper is to be used on a local machine and is not hosted on the internet. The wrapper is used to test the Weaviate instance and to learn how to use the Weaviate API. The wrapper is not intended to be used in a production environment. It uses Flask together with SwaggerUI to allow for easier testing of the API endpoints and a quick visualization of the Models. 
+
+Testing software is always the most tedious part of engineering, but it's also arguably the most important part. This Flask wrapper streamlines the testing process for my custom Weaviate instance and also allows me to learn how to use the Weaviate python library for future development.
+
+[Software Demo Video](https://youtu.be/SbZFCgqNyaM)
+
+## Cloud Database
+
+The cloud database used in this project is as mentioned above, a self-hosted Weaviate instance, deployed on a virtual machine provided by Hostinger via Docker. Weaviate is an open-source, GraphQL and RESTful API-enabled, database that allows for the storage, search, and retrieval of data.
+
+The base structure of my Weaviate database is as follows:
+```bash
+└── Classes
+    └── ClassName
+        ├── ID
+        └── Properties
+            ├── fileTextEmbeddings
+            │    ├── id
+            │    └── text
+            │
+            └── id
+```
+This structure allows for the storage of files and easy development in the future when adding actual files and embeddings.
+
+## 💻 Stack
+
+- [flask](https://pypi.org/project/Flask/): A lightweight web framework for building web applications.
+- [requests](https://pypi.org/project/requests/): A versatile HTTP library for making HTTP requests.
+- [cryptography](https://pypi.org/project/cryptography/): Provides cryptographic recipes and primitives.
+- [weaviate-client](https://pypi.org/project/weaviate-client/): Python client for interacting with Weaviate, a knowledge graph.
+- [Authlib](https://pypi.org/project/Authlib/): A powerful authentication library for securing web applications.
+- [flask-restx](https://pypi.org/project/flask-restx/): An extension for Flask that adds support for quickly building REST APIs.
+- [werkzeug](https://pypi.org/project/Werkzeug/): A comprehensive WSGI web application library.
+- [jsonschema](https://pypi.org/project/jsonschema/): A library for validating JSON data against a given schema.
+
+## Useful Websites
+
+- [Weaviate](https://weaviate.io/)
+- [YouTube](https://www.youtube.com/watch?v=klTvEwg3oJ4)
+- [Creating SwaggerUI with Flask](https://medium.com/the-ai-analytics-corner/swagger-ui-to-your-python-flask-api-9bf1c8fc0178)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
+- Add tests for file upload
+- Add tests for QnA search
+- Add tests for user Authentication
 
-- Item 1
-- Item 2
-- Item 3
+# 📄 License
+
+The MIT License (MIT)
+
+Copyright (c) 2023 Sebastian Dunn
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
